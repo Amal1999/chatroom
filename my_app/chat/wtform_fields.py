@@ -6,19 +6,6 @@ from passlib.hash import pbkdf2_sha256
 from my_app.chat.models import User
 
 
-# def invalid_credentials(form, field):
-#     """ Username and password checker """
-#
-#     password = field.data
-#     username = form.username.data
-#
-#     user_object = User.query.filter_by(username=username).first()
-#     if user_object is None:
-#         raise ValidationError("Username or password is incorrect")
-#     elif not pbkdf2_sha256.verify(password, user_object.password):
-#         raise ValidationError("Username or password is incorrect")
-
-
 class RegistrationForm(FlaskForm):
     """ Registration form"""
 
