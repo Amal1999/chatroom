@@ -43,7 +43,7 @@ module.exports = function (app, io) {
             // check login password from decrypt cipher by nonce password (socket.id)
             var userHashedPass = crypto.TripleDES.decrypt(data.password, socket.id).toString(crypto.enc.Utf8);
 
-            var user = manager.clients[data.email.hashCode()];
+            var user = manager.clients[data.username.hashCode()];
             if (user) { // exist user                
                 if (user.password == userHashedPass) {
 
@@ -74,9 +74,9 @@ module.exports = function (app, io) {
                 // their own unique socket object
                 var user = {
                     "socketid": socket.id, // just solid for this connection and changed for another connecting times
-                    "id": data.email.hashCode(), // unique for this email
-                    "username": data.username, // display name, maybe not unique
-                    "email": data.email, // unique email address for any users                                       
+                    "id": data.username.hashCode(),
+                    "username": data.username,
+                    "email": data.email,                                    
                     "password": userHashedPass, // Store Password Hashing for client login to authenticate one user per email
                     "avatar": gravatar.url(data.email, { s: '140', r: 'x', d: 'mm' }), // user avatar picture's
                     "status": "online", // { "online", "offline" }
