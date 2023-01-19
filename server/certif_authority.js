@@ -7,63 +7,70 @@ class CertificateAuthority {
     ca = null;
 
     constructor() {
-        // Generate a key pair for the certificate authority
-        var keys = forge.pki.rsa.generateKeyPair(2048);
 
-        // Create a new certificate authority (CA)
-        this.ca = forge.pki.createCertificate();
+        if (fs.existsSync('server/certifs/ca_certif.pem')) {
+            const pem = fs.readFileSync('server/certifs/ca_certif.pem', 'utf-8');
+            this.ca = forge.pki.certificateFromPem(pem);
+        } else {
 
-        // Set the public key for the CA
-        this.ca.publicKey = keys.publicKey;
+            // Generate a key pair for the certificate authority
+            var keys = forge.pki.rsa.generateKeyPair(2048);
 
-        // Set the subject information for the CA
-        this.ca.setSubject([
-            {
-                name: 'commonName',
-                value: 'CertifAuth'
-            },
-            {
-                name: 'countryName',
-                value: 'TN'
-            },
-            {
-                shortName: 'ST',
-                value: 'Tunis'
-            },
-            {
-                name: 'localityName',
-                value: 'Tunis'
-            },
-            {
-                name: 'organizationName',
-                value: 'INSAT'
-            }
-        ]);
+            // Create a new certificate authority (CA)
+            this.ca = forge.pki.createCertificate();
 
-        // Set the validity period for the CA
-        this.ca.validity.notBefore = new Date();
-        this.ca.validity.notAfter = new Date();
-        this.ca.validity.notAfter.setFullYear(this.ca.validity.notBefore.getFullYear() + 10);
+            // Set the public key for the CA
+            this.ca.publicKey = keys.publicKey;
 
-        // Self-sign the CA certificate
-        this.ca.sign(keys.privateKey);
+            // Set the subject information for the CA
+            this.ca.setSubject([
+                {
+                    name: 'commonName',
+                    value: 'CertifAuth'
+                },
+                {
+                    name: 'countryName',
+                    value: 'TN'
+                },
+                {
+                    shortName: 'ST',
+                    value: 'Tunis'
+                },
+                {
+                    name: 'localityName',
+                    value: 'Tunis'
+                },
+                {
+                    name: 'organizationName',
+                    value: 'INSAT'
+                }
+            ]);
 
-        // Set the validity period for the CA
-        this.ca.validity.notBefore = new Date();
-        this.ca.validity.notAfter = new Date();
-        this.ca.validity.notAfter.setFullYear(this.ca.validity.notBefore.getFullYear() + 10);
+            // Set the validity period for the CA
+            this.ca.validity.notBefore = new Date();
+            this.ca.validity.notAfter = new Date();
+            this.ca.validity.notAfter.setFullYear(this.ca.validity.notBefore.getFullYear() + 10);
 
-        // Self-sign the CA certificate
-        this.ca.sign(keys.privateKey);
+            // Self-sign the CA certificate
+            this.ca.sign(keys.privateKey);
 
-        const pem = forge.pki.certificateToPem(this.ca);
-        // Write the certificate to a file
-        fs.writeFileSync('server/certifs/ca_certif.pem', pem);
-        console.log('Certificate written to my-root-ca.pem')
+            // Set the validity period for the CA
+            this.ca.validity.notBefore = new Date();
+            this.ca.validity.notAfter = new Date();
+            this.ca.validity.notAfter.setFullYear(this.ca.validity.notBefore.getFullYear() + 10);
+
+            // Self-sign the CA certificate
+            this.ca.sign(keys.privateKey);
+
+            const pem = forge.pki.certificateToPem(this.ca);
+            // Write the certificate to a file
+            fs.writeFileSync('server/certifs/ca_certif.pem', pem);
+            console.log('Certificate written to my-root-ca.pem')
+        }
     }
 
-    getInstance(){
-        if(this.instance==null){
+    getInstance() {
+        if (this.instance == null) {
             this.instance = new CertificateAuthority()
         }
         return this.instance
@@ -92,7 +99,7 @@ class CertificateAuthority {
         const pem = forge.pki.certificateToPem(cert);
 
         // Write the certificate to a file
-        fs.writeFileSync("server/certifs/"+username + '_certif.pem', pem);
+        fs.writeFileSync("server/certifs/" + username + '_certif.pem', pem);
         console.log('Certificate written to my-root-ca.pem')
     }
 
@@ -102,7 +109,7 @@ class CertificateAuthority {
         var caPublicKey = forge.pki.publicKeyFromPem(fs.readFileSync('server/certifs/ca_certif.pem', 'utf8'));
 
         // Load the certificate to be verified from a PEM file
-        var cert = forge.pki.certificateFromPem(fs.readFileSync("server/certifs/"+username + '_certif.pem', 'utf8'));
+        var cert = forge.pki.certificateFromPem(fs.readFileSync("server/certifs/" + username + '_certif.pem', 'utf8'));
 
         // Verify the certificate against the CA public key
         var verified = cert.verify(caPublicKey);
