@@ -1,18 +1,5 @@
-// This file is required by app.js. It sets up event listeners
-// and listens for socket.io messages.
 "use strict";
 
-// Socket.io channels:
-//      connection          on new socket creatation
-//      disconnect          on lost user socket
-//      error               on system error
-//      login               on user request to login by user and password
-//      signed              on user successfull signed in to application
-//      update              on update users and channels list to all users
-//      msg                 on send or receive message in channel
-//      exception           on get an error to users
-//      typing              on a user typing some thing in message text box
-//      resign              on user sign-in expiration
 
 // Use the gravatar module, to turn email addresses into avatar images:
 var gravatar = require('gravatar');
