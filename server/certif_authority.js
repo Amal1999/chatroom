@@ -51,6 +51,8 @@ class CertificateAuthority {
                 }
             ]);
 
+            this.ca.setIssuer(this.ca.subject.attributes)
+
             // Set the validity period for the CA
             this.ca.validity.notBefore = new Date();
             this.ca.validity.notAfter = new Date();
@@ -110,7 +112,7 @@ class CertificateAuthority {
         const caPublicKey = this.ca.publicKey;
         
         // Verify the certificate against the CA public key
-        var verified = cert.verify(this.ca);
+        var verified = this.ca.verify(cert);
         
         if (verified) {
             console.log("Certificate is valid and issued by the CA.");
