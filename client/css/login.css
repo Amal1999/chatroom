@@ -1,5 +1,3 @@
-/*---------------------------------------------*/
-
 a {
   font-size: 14px;
   line-height: 1.7;
@@ -22,7 +20,12 @@ a:hover {
 
 /*---------------------------------------------*/
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0px;
 }
 
@@ -105,7 +108,7 @@ button.login100-form-btn:hover {
 }
 
 .container-login100::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   z-index: -1;
@@ -121,11 +124,7 @@ button.login100-form-btn:hover {
   border-radius: 10px;
   overflow: hidden;
   padding: 55px 55px 37px 55px;
-  background: #9152f8;
-  background: -webkit-linear-gradient(top, #7579ff, #b224ef);
-  background: -o-linear-gradient(top, #7579ff, #b224ef);
-  background: -moz-linear-gradient(top, #7579ff, #b224ef);
-  background: linear-gradient(top, #7579ff, #b224ef);
+  background: darkblue;
 }
 
 /*------------------------------------------------------------------
@@ -148,7 +147,7 @@ button.login100-form-btn:hover {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: darkblue;
   margin: 0 auto;
 }
 
@@ -173,7 +172,7 @@ button.login100-form-btn:hover {
 .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.28);
   margin-bottom: 30px;
 }
 
@@ -201,7 +200,7 @@ button.login100-form-btn:hover {
 }
 
 .focus-input100::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: -2px;
@@ -235,21 +234,21 @@ button.login100-form-btn:hover {
   padding-left: 5px;
 }
 
-.input100:focus+.focus-input100::after {
+.input100:focus + .focus-input100::after {
   top: -22px;
   font-size: 18px;
 }
 
-.input100:focus+.focus-input100::before {
+.input100:focus + .focus-input100::before {
   width: 100%;
 }
 
-.has-val.input100+.focus-input100::after {
+.has-val.input100 + .focus-input100::after {
   top: -22px;
   font-size: 18px;
 }
 
-.has-val.input100+.focus-input100::before {
+.has-val.input100 + .focus-input100::before {
   width: 100%;
 }
 
@@ -286,11 +285,8 @@ button.login100-form-btn:hover {
   min-width: 120px;
   height: 50px;
   border-radius: 25px;
-  background: #9152f8;
-  background: -webkit-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -o-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -moz-linear-gradient(bottom, #7579ff, #b224ef);
-  background: linear-gradient(bottom, #7579ff, #b224ef);
+  background: darkblue;
+
   position: relative;
   z-index: 1;
   -webkit-transition: all 0.4s;
@@ -300,7 +296,7 @@ button.login100-form-btn:hover {
 }
 
 .login100-form-btn::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   z-index: -1;
@@ -370,7 +366,7 @@ button.login100-form-btn:hover {
 }
 
 .alert-validate::after {
-  content: "\f12a";
+  content: '\f12a';
   font-family: FontAwesome;
   font-size: 16px;
   color: #c80000;
