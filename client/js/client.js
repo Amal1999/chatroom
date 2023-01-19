@@ -477,10 +477,6 @@ function getNoncePassword(pass) {
 
 	/*==================================================================
 	[ Add channel button ]*/
-	$("#disconnect").on("click", () => {
-		socket.emit("disconnect")
-	})
-
 	$("#addchannel").on("click", () => {
 		var name = prompt("Please enter channel name:", "Channel");
 		if (name) {
@@ -493,6 +489,12 @@ function getNoncePassword(pass) {
 				alert(`The <${name}> channel name already exist`);
 			}
 		}
+	})
+
+	$("#disconnect").on("click", () => {
+		socket.emit("disconnect")
+		localStorage.clear()
+		location.reload()
 	})
 
 	/*==================================================================
