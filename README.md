@@ -1,5 +1,3 @@
 # chatroom
 
-Sammari Amal
-Achour Ines
-Lamine Hatem
+Sammari Amal - Achour Ines - Lamine Hatem
