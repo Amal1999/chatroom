@@ -23,6 +23,56 @@ var globalChannel = "environment"; // add any authenticated user to this channel
 var chat = {}; // socket.io
 var loginExpireTime = 3600 * 1000; // 3600sec
 const CertificateAuthority = require('./certif_authority');
+var ldap = require('ldapjs');
+
+
+/*var client = ldap.createClient({
+    url: 'ldap://0.0.0.0:1389'
+});
+
+
+
+
+function saveToLDAP(username) {
+
+    var certPem = fs.readFileSync("server/certifs/" + username + '_certif.pem');
+
+    var cert = forge.pki.certificateFromPem(certPem);
+
+    // Add the certificate to an LDAP entry
+    var entry = {
+        dn: 'cn=' + username + ',ou=users,dc=example,dc=com',
+        attributes: {
+            objectclass: ['User'],
+            cn: username,
+            userCertificate: certPem
+        }
+    };
+
+    client.add(entry.dn, entry.attributes, function (err) {
+        if (err) {
+            console.log('--------------------- errrooooor -----------');
+            console.log(err);
+            return;
+        }
+        console.log('Certificate added to LDAP directory');
+    });
+
+    // Bind to the LDAP server using the certificate
+    client.bind(entry.dn, cert, function (err) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log('Bound to LDAP server with certificate');
+    });
+}*/
+
+
+
+
+
+
 
 // Export a function, so that we can pass 
 // the app and io instances from the app.js file:
@@ -30,6 +80,7 @@ module.exports = function (app, io) {
     // Initialize a new socket.io application, named 'chat'
     chat = io;
     let certifAuth = new CertificateAuthority()
+
     io.on('connection', function (socket) {
         console.info(`socket: ${socket.id} connected`);
 
@@ -44,7 +95,7 @@ module.exports = function (app, io) {
                 if (user.password == userHashedPass) {
                     // check user sign expiration
                     if (user.lastLoginDate + loginExpireTime > Date.now()) { // expire after 60min
-                        if(certifAuth.verficateCertification(user.username)){
+                        if (certifAuth.verficateCertification(user.username)) {
                             userSigned(user, socket);
                         }
                     }
