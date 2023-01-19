@@ -166,7 +166,7 @@ socket.on('fetch-messages', data => {
 
 socket.on('error', () => {
 	console.log("Client: error");
-	socket.socket.reconnect();
+	//socket.socket.reconnect();
 });
 
 

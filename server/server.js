@@ -22,7 +22,6 @@ var serverVersion = manager.generateGuid(); // a unique version for every startu
 var globalChannel = "environment"; // add any authenticated user to this channel
 var chat = {}; // socket.io
 var loginExpireTime = 3600 * 1000; // 3600sec
-//var CertificateAuthority = require('./certif_authority.js')
 const CertificateAuthority = require('./certif_authority');
 
 // Export a function, so that we can pass 
@@ -30,39 +29,29 @@ const CertificateAuthority = require('./certif_authority');
 module.exports = function (app, io) {
     // Initialize a new socket.io application, named 'chat'
     chat = io;
+    let certifAuth = new CertificateAuthority()
     io.on('connection', function (socket) {
         console.info(`socket: ${socket.id} connected`);
 
         // When the client emits 'login', save his name and avatar,
         // and add them to the channel
         socket.on('login', data => {
-
-            let certifAuth = new CertificateAuthority()
-            console.log("ca worked");
-
             // check login password from decrypt cipher by nonce password (socket.id)
             var userHashedPass = crypto.TripleDES.decrypt(data.password, socket.id).toString(crypto.enc.Utf8);
 
-            var user = manager.clients[data.username.hashCode()];
+            var user = manager.clients[data.email.hashCode()];
             if (user) { // exist user                
                 if (user.password == userHashedPass) {
-
-                    response = certifAuth.verficateCertification(user.username)
-                    if (response) {
-                        // check user sign expiration
-                        if (user.lastLoginDate + loginExpireTime > Date.now()) { // expire after 60min
+                    // check user sign expiration
+                    if (user.lastLoginDate + loginExpireTime > Date.now()) { // expire after 60min
+                        if(certifAuth.verficateCertification(user.username)){
                             userSigned(user, socket);
                         }
-                        else {
-                            socket.emit("resign");
-                        }
-                        user.lastLoginDate = Date.now(); // update user login time
                     }
-                    else{
-                        socket.emit("exception", "Certificat non vérifié!"); 
+                    else {
+                        socket.emit("resign");
                     }
-
-
+                    user.lastLoginDate = Date.now(); // update user login time
                 }
                 else { // exist user, entry password is incorrect
                     socket.emit("exception", "The username or password is incorrect!");
@@ -74,17 +63,16 @@ module.exports = function (app, io) {
                 // their own unique socket object
                 var user = {
                     "socketid": socket.id, // just solid for this connection and changed for another connecting times
-                    "id": data.username.hashCode(),
-                    "username": data.username,
-                    "email": data.email,                                    
+                    "id": data.email.hashCode(), // unique for this email
+                    "username": data.username, // display name, maybe not unique
+                    "email": data.email, // unique email address for any users                                       
                     "password": userHashedPass, // Store Password Hashing for client login to authenticate one user per email
                     "avatar": gravatar.url(data.email, { s: '140', r: 'x', d: 'mm' }), // user avatar picture's
                     "status": "online", // { "online", "offline" }
                     "lastLoginDate": Date.now() // last login time accourding by server time
                 };
                 manager.clients[user.id] = user;
-
-                certifAuth.createCertification(user.username);
+                certifAuth.createCertification(user.username)
                 userSigned(user, socket);
             }
         }); // login
@@ -176,9 +164,6 @@ function defineSocketEvents(socket) {
     // Handle the request of users for chat
     socket.on("request", data => {
 
-        console.log("-------------------------------------------------------");
-        console.log("request");
-
         // find user who requested to this chat by socket id
         var from = socket.user || manager.findUser(socket.id);
 
@@ -252,8 +237,6 @@ function defineSocketEvents(socket) {
 
     // Handle the request of users for chat
     socket.on("reject", data => {
-
-        console.log("------------------------ rejected ------------------------");
 
         // find user who accepted to this chat by socket id
         var from = socket.user || manager.findUser(socket.id);
