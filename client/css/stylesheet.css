@@ -4,15 +4,14 @@
   box-sizing: border-box;
 }
 
-body,
-html {
+body, html {
   height: 100%;
   /* display: flex; */
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: #f5f5f5;
-  font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
   letter-spacing: 0.1px;
   color: #32465a;
@@ -26,13 +25,13 @@ html {
   min-width: 360px;
   height: 100vh;
   min-height: 300px;
-  background: lightgray;
+  background: #E6EAEA;
 }
 
 @media screen and (max-width: 360px) {
   #frame {
-    width: 100%;
-    height: 100vh;
+      width: 100%;
+      height: 100vh;
   }
 }
 
@@ -42,7 +41,7 @@ html {
   max-width: 340px;
   width: 40%;
   height: 100%;
-  background: gray;
+  background: #2c3e50;
   color: #f5f5f5;
   overflow: hidden;
   position: relative;
@@ -50,8 +49,8 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel {
-    width: 58px;
-    min-width: 58px;
+      width: 58px;
+      min-width: 58px;
   }
 }
 
@@ -62,10 +61,10 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile {
-    width: 100%;
-    margin: 0 auto;
-    padding: 5px 0 0 0;
-    background: #32465a;
+      width: 100%;
+      margin: 0 auto;
+      padding: 5px 0 0 0;
+      background: #32465a;
   }
 }
 
@@ -84,7 +83,7 @@ html {
   -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   filter: FlipH;
-  -ms-filter: 'FlipH';
+  -ms-filter: "FlipH";
 }
 
 #frame #sidepanel #profile .wrap {
@@ -99,7 +98,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap {
-    height: 55px;
+      height: 55px;
   }
 }
 
@@ -119,8 +118,8 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap img {
-    width: 40px;
-    margin-left: 4px;
+      width: 40px;
+      margin-left: 4px;
   }
 }
 
@@ -147,7 +146,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap p {
-    display: none;
+      display: none;
   }
 }
 
@@ -161,7 +160,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap i.expand-button {
-    display: none;
+      display: none;
   }
 }
 
@@ -174,7 +173,7 @@ html {
   border-radius: 6px;
   z-index: 99;
   line-height: initial;
-  background: lightgray;
+  background: #435f7a;
   -moz-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   -webkit-transition: 0.3s all ease;
@@ -183,8 +182,8 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options {
-    width: 58px;
-    margin-top: 57px;
+      width: 58px;
+      margin-top: 57px;
   }
 }
 
@@ -196,7 +195,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options.active {
-    margin-top: 62px;
+      margin-top: 62px;
   }
 }
 
@@ -213,7 +212,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options:before {
-    margin-left: 23px;
+      margin-left: 23px;
   }
 }
 
@@ -230,12 +229,12 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options ul li {
-    padding: 15px 0 35px 22px;
+      padding: 15px 0 35px 22px;
   }
 }
 
 #frame #sidepanel #profile .wrap #status-options ul li:hover {
-  background: lightgray;
+  background: #496886;
 }
 
 #frame #sidepanel #profile .wrap #status-options ul li span.status-circle {
@@ -248,19 +247,12 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options ul li span.status-circle {
-    width: 14px;
-    height: 14px;
+      width: 14px;
+      height: 14px;
   }
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li
-  span.status-circle:before {
+#frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
   content: '';
   position: absolute;
   width: 14px;
@@ -272,16 +264,9 @@ html {
 }
 
 @media screen and (max-width: 735px) {
-  #frame
-    #sidepanel
-    #profile
-    .wrap
-    #status-options
-    ul
-    li
-    span.status-circle:before {
-    height: 18px;
-    width: 18px;
+  #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+      height: 18px;
+      width: 18px;
   }
 }
 
@@ -291,95 +276,39 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #profile .wrap #status-options ul li p {
-    display: none;
+      display: none;
   }
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-online
-  span.status-circle {
+#frame #sidepanel #profile .wrap #status-options ul li#status-online span.status-circle {
   background: #2ecc71;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-online.active
-  span.status-circle:before {
+#frame #sidepanel #profile .wrap #status-options ul li#status-online.active span.status-circle:before {
   border: 1px solid #2ecc71;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-away
-  span.status-circle {
+#frame #sidepanel #profile .wrap #status-options ul li#status-away span.status-circle {
   background: #f1c40f;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-away.active
-  span.status-circle:before {
+#frame #sidepanel #profile .wrap #status-options ul li#status-away.active span.status-circle:before {
   border: 1px solid #f1c40f;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-busy
-  span.status-circle {
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle {
   background: #e74c3c;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-busy.active
-  span.status-circle:before {
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy.active span.status-circle:before {
   border: 1px solid #e74c3c;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-offline
-  span.status-circle {
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline span.status-circle {
   background: #95a5a6;
 }
 
-#frame
-  #sidepanel
-  #profile
-  .wrap
-  #status-options
-  ul
-  li#status-offline.active
-  span.status-circle:before {
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline.active span.status-circle:before {
   border: 1px solid #95a5a6;
 }
 
@@ -399,7 +328,7 @@ html {
 #frame #sidepanel #profile .wrap #expanded input {
   border: none;
   margin-bottom: 6px;
-  background: lightgray;
+  background: #32465a;
   border-radius: 3px;
   color: #f5f5f5;
   padding: 7px;
@@ -408,7 +337,7 @@ html {
 
 #frame #sidepanel #profile .wrap #expanded input:focus {
   outline: none;
-  background: lightgray;
+  background: #435f7a;
 }
 
 #frame #sidepanel #search {
@@ -419,7 +348,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #search {
-    display: none;
+      display: none;
   }
 }
 
@@ -429,17 +358,17 @@ html {
 }
 
 #frame #sidepanel #search input {
-  font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   padding: 10px 0 10px 46px;
   width: calc(100% - 25px);
   border: none;
-  background: darkgray;
+  background: #32465a;
   color: #f5f5f5;
 }
 
 #frame #sidepanel #search input:focus {
   outline: none;
-  background: darkgray;
+  background: #435f7a;
 }
 
 #frame #sidepanel #search input::-webkit-input-placeholder {
@@ -466,12 +395,12 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts {
-    height: calc(100% - 149px);
-    overflow-y: scroll;
-    overflow-x: hidden;
+      height: calc(100% - 149px);
+      overflow-y: scroll;
+      overflow-x: hidden;
   }
   #frame #sidepanel #contacts::-webkit-scrollbar {
-    display: none;
+      display: none;
   }
 }
 
@@ -481,11 +410,11 @@ html {
 
 #frame #sidepanel #contacts::-webkit-scrollbar {
   width: 8px;
-  background: darkgray;
+  background: #2c3e50;
 }
 
 #frame #sidepanel #contacts::-webkit-scrollbar-thumb {
-  background-color: darkgray;
+  background-color: #243140;
 }
 
 #frame #sidepanel #contacts ul li.contact {
@@ -497,21 +426,21 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts ul li.contact {
-    padding: 6px 0 46px 8px;
+      padding: 6px 0 46px 8px;
   }
 }
 
 #frame #sidepanel #contacts ul li.contact:hover {
-  background: darkgray;
+  background: #32465a;
 }
 
 #frame #sidepanel #contacts ul li.contact.active {
-  background: darkgray;
+  background: #2f5f7f;
   border-right: 5px solid #5f9f9f;
 }
 
 #frame #sidepanel #contacts ul li.contact.active span.contact-status {
-  border: 2px solid darkgray !important;
+  border: 2px solid #32465a !important;
 }
 
 #frame #sidepanel #contacts ul li.contact .wrap {
@@ -522,7 +451,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts ul li.contact .wrap {
-    width: 100%;
+      width: 100%;
   }
 }
 
@@ -533,7 +462,7 @@ html {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 2px solid darkgray;
+  border: 2px solid #2c3e50;
   background: #95a5a6;
 }
 
@@ -558,7 +487,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts ul li.contact .wrap img {
-    margin-right: 0px;
+      margin-right: 0px;
   }
 }
 
@@ -568,7 +497,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #contacts ul li.contact .wrap .meta {
-    display: none;
+      display: none;
   }
 }
 
@@ -597,7 +526,7 @@ html {
   border: none;
   padding: 0 2px 0 0;
   margin: 0 0 0 1px;
-  opacity: 0.5;
+  opacity: .5;
 }
 
 #frame #sidepanel #bottom-bar {
@@ -611,18 +540,18 @@ html {
   border: none;
   width: 50%;
   padding: 10px 0;
-  background: darkgray;
+  background: #32465a;
   color: #f5f5f5;
   cursor: pointer;
   font-size: 0.85em;
-  font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
 }
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button {
-    float: none;
-    width: 100%;
-    padding: 15px 0;
+      float: none;
+      width: 100%;
+      padding: 15px 0;
   }
 }
 
@@ -631,13 +560,13 @@ html {
 }
 
 #frame #sidepanel #bottom-bar button:nth-child(1) {
-  border-right: 1px solid darkgray;
+  border-right: 1px solid #2c3e50;
 }
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button:nth-child(1) {
-    border-right: none;
-    border-bottom: 1px solid darkgray;
+      border-right: none;
+      border-bottom: 1px solid #2c3e50;
   }
 }
 
@@ -652,13 +581,13 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button i {
-    font-size: 1.3em;
+      font-size: 1.3em;
   }
 }
 
 @media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button span {
-    display: none;
+      display: none;
   }
 }
 
@@ -672,14 +601,14 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame .content {
-    width: calc(100% - 58px);
-    min-width: 300px !important;
+      width: calc(100% - 58px);
+      min-width: 300px !important;
   }
 }
 
 @media screen and (min-width: 900px) {
   #frame .content {
-    width: calc(100% - 340px);
+      width: calc(100% - 340px);
   }
 }
 
@@ -728,7 +657,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame .content .messages {
-    max-height: calc(100% - 105px);
+      max-height: calc(100% - 105px);
   }
 }
 
@@ -789,7 +718,7 @@ html {
 
 @media screen and (min-width: 735px) {
   #frame .content .messages ul li p {
-    max-width: 300px;
+      max-width: 300px;
   }
 }
 
@@ -805,7 +734,7 @@ html {
 }
 
 #frame .content .message-input .wrap input {
-  font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   float: left;
   border: none;
   width: calc(100% - 90px);
@@ -816,7 +745,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame .content .message-input .wrap input {
-    padding: 15px 32px 16px 8px;
+      padding: 15px 32px 16px 8px;
   }
 }
 
@@ -831,14 +760,14 @@ html {
   margin-top: 10px;
   font-size: 1.1em;
   color: #435f7a;
-  opacity: 0.5;
+  opacity: .5;
   cursor: pointer;
 }
 
 @media screen and (max-width: 735px) {
   #frame .content .message-input .wrap .attachment {
-    margin-top: 17px;
-    right: 65px;
+      margin-top: 17px;
+      right: 65px;
   }
 }
 
@@ -858,7 +787,7 @@ html {
 
 @media screen and (max-width: 735px) {
   #frame .content .message-input .wrap button {
-    padding: 16px 0;
+      padding: 16px 0;
   }
 }
 
@@ -874,19 +803,19 @@ html {
 
 @-webkit-keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
@@ -914,7 +843,7 @@ html {
   display: none;
 }
 
-p > b {
+p>b {
   color: #cccccc;
   font-weight: 600;
 }
@@ -927,8 +856,8 @@ p > b {
   content: attr(data-badge);
   position: absolute;
   margin-left: 10px;
-  font-size: 0.7em;
-  background: rgba(22, 120, 110, 0.85);
+  font-size: .7em;
+  background: rgba(22, 120, 110, .85);
   color: white;
   width: 18px;
   height: 18px;
@@ -940,7 +869,7 @@ p > b {
 
 /* hide empty badge */
 
-.badge[data-badge='']:after {
+.badge[data-badge=""]:after {
   content: none;
 }
 
