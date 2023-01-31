@@ -1,7 +1,6 @@
 "use strict";
 
 
-// Use the gravatar module, to turn email addresses into avatar images:
 var gravatar = require('gravatar');
 var manager = require('./manager.js');
 var crypto = require("crypto-js");
@@ -56,23 +55,15 @@ function saveToLDAP(username) {
 }*/
 
 
-
-
-
-
-
-// Export a function, so that we can pass 
-// the app and io instances from the app.js file:
 module.exports = function (app, io) {
-    // Initialize a new socket.io application, named 'chat'
+    // Initialize a new socket.io application
     chat = io;
     let certifAuth = new CertificateAuthority()
 
     io.on('connection', function (socket) {
         console.info(`socket: ${socket.id} connected`);
 
-        // When the client emits 'login', save his name and avatar,
-        // and add them to the channel
+        // When the client emits 'login', save his name and avatar and add them to the channel
         socket.on('login', data => {
             // check login password from decrypt cipher by nonce password (socket.id)
             var userHashedPass = crypto.TripleDES.decrypt(data.password, socket.id).toString(crypto.enc.Utf8);
@@ -97,12 +88,11 @@ module.exports = function (app, io) {
                 }
             }
             else { // new user
-                // Use the socket object to store data. Each client gets
-                // their own unique socket object
+                // Use the socket object to store data.
                 var user = {
                     "socketid": socket.id, // just solid for this connection and changed for another connecting times
                     "id": data.email.hashCode(), // unique for this email
-                    "username": data.username, // display name, maybe not unique
+                    "username": data.username, // display name, unique
                     "email": data.email, // unique email address for any users                                       
                     "password": userHashedPass, // Store Password Hashing for client login to authenticate one user per email
                     "avatar": gravatar.url(data.email, { s: '140', r: 'x', d: 'mm' }), // user avatar picture's
@@ -113,19 +103,19 @@ module.exports = function (app, io) {
                 certifAuth.createCertification(user.username)
                 userSigned(user, socket);
             }
-        }); // login
+        });
 
-    }); // connected user - socket scope
+    });
 
-} // module.export func
+}
 
 
 function userSigned(user, socket) {
     user.status = "online";
     user.socketid = socket.id;
     socket.user = user;
-    //
-    // send success ack to user by self data object
+
+    // send success ack to user
     socket.emit("signed", {
         "id": user.id,
         "username": user.username,
@@ -138,7 +128,7 @@ function userSigned(user, socket) {
     socket.join(globalChannel); // join all users in global authenticated group
 
     // add user to all joined channels
-    var userChannels = manager.getUserChannels(user.id, true); // by p2p channel
+    var userChannels = manager.getUserChannels(user.id, true);
     for (var channel in userChannels) {
         socket.join(channel);
     }
@@ -147,17 +137,17 @@ function userSigned(user, socket) {
     defineSocketEvents(socket);
 
     console.info(`User <${user.username}> by socket <${user.socketid}> connected`)
-} // signed-in
+}
 
 function updateAllUsers() {
-    // tell new user added and list updated to everyone except the socket that starts it
+    // when new user added
     chat.sockets.in(globalChannel).emit("update", { users: manager.getUsers(), channels: manager.getChannels() });
 }
 
 function createChannel(name, user, p2p) {
     var channel = { name: name, p2p: p2p, adminUserId: user.id, status: "online", users: [user.id] };
     manager.channels[name] = channel;
-    chat.sockets.connected[user.socketid].join(name); // add admin to self chat
+    chat.sockets.connected[user.socketid].join(name);
     return channel;
 }
 
@@ -165,9 +155,6 @@ function defineSocketEvents(socket) {
 
     // Somebody left the chat
     socket.on('disconnect', () => {
-        // Upon disconnection, sockets leave all the channels they were part of automatically, 
-        // and no special teardown is needed on this part.
-
         // find user who abandon sockets
         var user = socket.user || manager.findUser(socket.id);
         if (user) {
@@ -175,13 +162,12 @@ function defineSocketEvents(socket) {
             user.status = "offline";
 
             // Notify the other person in the chat channel
-            // that his partner has left
             socket.broadcast.to(globalChannel).emit('leave',
                 { username: user.username, id: user.id, avatar: user.avatar, status: user.status });
         }
     });
 
-    // Handle the sending of messages
+    // Sending messages
     socket.on("msg", data => {
         var from = socket.user || manager.findUser(socket.id);
         var channel = manager.channels[data.to];
@@ -207,9 +193,9 @@ function defineSocketEvents(socket) {
 
         // if user authenticated 
         if (from) {
-            data.from = from.id; // inject user id in data
+            data.from = from.id;
 
-            // find admin user who should be send request to
+            // find user who should we send request to
             var adminUser = manager.getAdminFromChannelName(data.channel, from.id)
 
             if (adminUser) {
@@ -222,32 +208,23 @@ function defineSocketEvents(socket) {
                 return;
             }
         }
-        //
-        // from or adminUser is null
         socket.emit("exception", "The requested chat not found!");
     });
 
     // Handle the request of users for chat
     socket.on("accept", data => {
 
-        // find user who accepted to this chat by socket id
         var from = socket.user || manager.findUser(socket.id);
-
-        // find user who is target user by user id
         var to = manager.clients[data.to];
 
-        // if users authenticated 
         if (from != null && to != null) {
             var channel = manager.channels[data.channel];
 
             if (channel == null) {
-                // new p2p channel
                 channel = createChannel(data.channel, from, true)
             }
-            //
-            // add new user to this channel
             channel.users.push(to.id);
-            chat.sockets.connected[to.socketid].join(channel.name); // add new user to chat channel
+            chat.sockets.connected[to.socketid].join(channel.name);
 
             // send accept msg to user which requested to chat
             socket.to(to.socketid).emit("accept", { from: from.id, channel: channel.name, p2p: channel.p2p, channelKey: data.channelKey })
@@ -265,7 +242,6 @@ function defineSocketEvents(socket) {
             return;
         }
 
-        // create new channel
         channel = createChannel(name, from, false);
         updateAllUsers();
 
@@ -276,13 +252,9 @@ function defineSocketEvents(socket) {
     // Handle the request of users for chat
     socket.on("reject", data => {
 
-        // find user who accepted to this chat by socket id
         var from = socket.user || manager.findUser(socket.id);
-
-        // find user who is target user by user id
         var to = manager.clients[data.to];
 
-        // if users authenticated 
         if (from != null && to != null) {
             var channel = manager.channels[data.channel];
             socket.to(to.socketid).emit("reject", { from: from.id, p2p: (channel == null), channel: data.channel })
@@ -291,7 +263,6 @@ function defineSocketEvents(socket) {
 
     // Handle the request of users for chat
     socket.on("fetch-messages", channelName => {
-        // find fetcher user
         var fetcher = socket.user || manager.findUser(socket.id);
 
         var channel = manager.channels[channelName];
@@ -312,4 +283,4 @@ function defineSocketEvents(socket) {
         }
     });
 
-} // defineSocketEvents
+}

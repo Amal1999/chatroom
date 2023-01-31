@@ -1,14 +1,9 @@
-/* Cryptology used Forge.js lib to encrypt/decrypt by symmetric or asymmetric algorithms */
 "use strict";
 
-// Create the encryption object for asymmetric RSA algorithm.
 var rsa = new JSEncrypt();
-
-// define the characters to pick from
 var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz*&-%/!?*+=()";
 
 // create a key for symmetric encryption
-// pass in the desired length of your key
 function generateKey(keyLength) {
     var randomstring = '';
 
@@ -30,7 +25,7 @@ var generateKeyPair = function () {
     }
 };
 
-// hasing text by sha-512 algorithm
+// hashing text by sha-512 algorithm
 String.prototype.getHash = function () {
     return CryptoJS.SHA512(this).toString();
 }
@@ -54,16 +49,15 @@ String.prototype.asymEncrypt = function (publicKey) {
 
 // asymmetric RSA decryption
 String.prototype.asymDecrypt = function (privateKey) {
-    rsa.setPrivateKey(privateKey); // Set the private.
+    rsa.setPrivateKey(privateKey);
     return rsa.decrypt(this);
 }
 
 function getCipherKeys() {
-    var keys = localStorage.cipherKeys; // read keys json 
+    var keys = localStorage.cipherKeys;
     if (keys == null) {
         keys = generateKeyPair();
 
-        // store keys as json in localStorage
         localStorage.cipherKeys = JSON.stringify(keys);
         return keys;
     }
